@@ -58,7 +58,6 @@ Future<void> _loadUserId() async {
       appBar: AppBar(title: const Text("Select Stations")),
       body: Column(
         children: [
-          // 🚏 START & END SEARCH FIELDS
           Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
@@ -80,7 +79,6 @@ Future<void> _loadUserId() async {
             ),
           ),
 
-          // 🔽 SEARCH DROPDOWN RESULTS
           if (map.filteredStations.isNotEmpty)
             Container(
               height: 120,
@@ -105,7 +103,6 @@ Future<void> _loadUserId() async {
               ),
             ),
 
-          // 🗺 MAP
           Expanded(
             child: fm.FlutterMap(
               mapController: _mapController,
@@ -119,7 +116,6 @@ Future<void> _loadUserId() async {
                   subdomains: const ['a', 'b', 'c'],
                 ),
 
-                // 📍 STATION MARKERS (ALL STATIONS)
                 fm.MarkerLayer(
                   markers: map.stations.map((s) {
                     final isStart = map.startStation?.id == s.id;
@@ -145,7 +141,6 @@ Future<void> _loadUserId() async {
                   }).toList(),
                 ),
 
-                // 🧭 ROUTE LINE
                 if (map.startStation != null && map.endStation != null)
                   fm.PolylineLayer(
                     polylines: [
@@ -165,7 +160,6 @@ Future<void> _loadUserId() async {
             ),
           ),
 
-          // 📋 ALL STATIONS PICKER
           SizedBox(
             height: 90,
             child: ListView.builder(
@@ -199,7 +193,6 @@ Future<void> _loadUserId() async {
             ),
           ),
 
-          // ▶ NEXT
           Padding(
             padding: const EdgeInsets.all(16),
             child: ElevatedButton(
@@ -240,7 +233,7 @@ Future<void> _loadUserId() async {
       onTap: () => selectingStart = isStart,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          map.searchStations(value); // 🔥 BACKEND SEARCH
+          map.searchStations(value); 
         } else {
           map.filteredStations = [];
           map.notifyListeners();
