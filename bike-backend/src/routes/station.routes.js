@@ -1,14 +1,13 @@
-const router = require("express").Router();
-const Station = require("../models/Station");
+const express = require("express");
+const router = express.Router();
+const {
+  getStations,
+  seedStations,
+  unlockDock
+} = require("../controllers/stationController");
 
-// Get all stations
-router.get("/", async (req, res) => {
-  try {
-    const stations = await Station.find();
-    res.json(stations);
-  } catch (err) {
-    res.status(500).json({ message: "Server error", error: err.message });
-  }
-});
+router.get("/", getStations);
+router.post("/seed", seedStations);
+router.post("/unlock-dock", unlockDock);
 
 module.exports = router;

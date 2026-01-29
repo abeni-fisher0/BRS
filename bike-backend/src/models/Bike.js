@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const bikeSchema = new mongoose.Schema({
-  qrCode: { type: String, required: true, unique: true },
+  
   isAvailable: { type: Boolean, default: true },
   station: { type: mongoose.Schema.Types.ObjectId, ref: "Station", required: true }
 }, { timestamps: true });

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../controllers/auth_controller.dart';
+import '../../map/screens/map_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
+
   final nameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
@@ -12,23 +15,23 @@ class RegisterScreen extends StatelessWidget {
     final auth = context.watch<AuthController>();
 
     return Scaffold(
-      appBar: AppBar(title: Text("Create Account")),
+      appBar: AppBar(title: const Text("Create Account")),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             TextField(
               controller: nameCtrl,
-              decoration: InputDecoration(labelText: "Name"),
+              decoration: const InputDecoration(labelText: "Name"),
             ),
             TextField(
               controller: emailCtrl,
-              decoration: InputDecoration(labelText: "Email"),
+              decoration: const InputDecoration(labelText: "Email"),
             ),
             TextField(
               controller: passwordCtrl,
               obscureText: true,
-              decoration: InputDecoration(labelText: "Password"),
+              decoration: const InputDecoration(labelText: "Password"),
             ),
             const SizedBox(height: 20),
 
@@ -41,11 +44,19 @@ class RegisterScreen extends StatelessWidget {
                         emailCtrl.text,
                         passwordCtrl.text,
                       );
-                      Navigator.pop(context); // back to login
+
+                      if (auth.isAuthenticated) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => MapScreen(),
+                          ),
+                        );
+                      }
                     },
               child: auth.isLoading
-                  ? CircularProgressIndicator()
-                  : Text("Register"),
+                  ? const CircularProgressIndicator()
+                  : const Text("Register"),
             ),
           ],
         ),
